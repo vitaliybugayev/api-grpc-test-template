@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression Tests" parallel="methods" thread-count="5">
+    <test name="Full API Tests">
+        <packages>
+            <package name="tests.api.*"/>
+        </packages>
+    </test>
+    
+    <test name="Full gRPC Tests">
+        <packages>
+            <package name="tests.grpc.*"/>
+        </packages>
+    </test>
+</suite>

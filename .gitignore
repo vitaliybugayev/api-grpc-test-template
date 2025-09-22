@@ -1,0 +1,97 @@
+# ======================================
+# Git Ignore for Java/Maven Test Framework
+# Stack: Java 21, Maven, TestNG, Allure, Rest-Assured, gRPC
+# IDE: IntelliJ IDEA (primary), Eclipse/VS Code (optional)
+# ======================================
+
+# --- Maven / Java build outputs ---
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Maven Surefire/Failsafe reports (also under target but listed for clarity if paths change)
+/surefire-reports/
+/failsafe-reports/
+
+# JVM crash logs
+hs_err_pid*.log
+replay_pid*.log
+heapdump*.hprof
+
+# --- IDE / Editor files ---
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# --- OS / Environment noise ---
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Logs and Reports ---
+logs/
+*.log
+
+# Allure results/reports
+allure-results/
+allure-report/
+/.allure/
+**/allure-results/
+**/allure-report/
+
+# Test report history (if generated outside target)
+/report/
+/reports/
+
+# --- Docker / Compose local files ---
+# Local env files (never commit secrets)
+.env
+.env.*
+
+# Local docker compose overrides
+docker-compose.override.yml
+
+# --- Proto / Generated sources ---
+# Usually under target/, but ignore defensively if path changes
+/generated/
+
+# --- Temporary files ---
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# --- Coverage and analysis ---
+# JaCoCo / coverage
+jacoco.exec
+/site/
+/coverage/
+**/coverage/
+
+# --- Misc build tools ---
+# Gradle (not used, but ignore if present locally)
+.gradle/
+build/
+
+# Node/NPM stray folders (not used, but common in mixed repos)
+node_modules/
+
+# --- Local scripts/output ---
+run-local*/

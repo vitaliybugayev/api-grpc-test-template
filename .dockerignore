@@ -1,0 +1,85 @@
+# Build outputs and temporary files
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Version control
+.git/
+.gitignore
+.gitattributes
+.gitmodules
+
+# Docker files (avoid copying Docker files into Docker)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Documentation
+README.md
+TESTING_GUIDELINES.md
+*.md
+
+# Log files
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+.tmp
+
+# Test reports (will be generated inside container)
+allure-results/
+surefire-reports/
+test-output/
+
+# Maven/Gradle wrapper (keep the wrapper itself but ignore downloaded files)
+.mvn/wrapper/maven-wrapper.jar
+gradle/wrapper/gradle-wrapper.jar
+
+# Package manager cache
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment specific files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Other unnecessary files for Docker build
+*.orig
+*.patch
+*.diff

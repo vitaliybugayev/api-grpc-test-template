@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # Main test automation service
+  api-grpc-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: api-grpc-tests
+    environment:
+      - TEST_SUITE=${TEST_SUITE:-smoke.xml}
+      - JAVA_OPTS=-Xmx2g -Xms1g
+      - MAVEN_OPTS=-Xmx2g -Xms1g
+      # Test environment configuration
+      - ENV=${ENV:-dev}
+      - USER_SERVICE_HOST=${USER_SERVICE_HOST:-localhost}
+      - USER_SERVICE_PORT=${USER_SERVICE_PORT:-50051}
+      - GRPC_DEADLINE_SECONDS=${GRPC_DEADLINE_SECONDS:-30}
+      # Allure configuration
+      - ALLURE_RESULTS_DIR=/app/target/allure-results
+    volumes:
+      # Mount test results and reports
+      - ./target/allure-results:/app/target/allure-results
+      - ./target/surefire-reports:/app/target/surefire-reports
+      - ./logs:/app/logs
+      # Mount configuration files if they exist locally
+      - ./src/main/resources:/app/src/main/resources:ro
+      - ./test-suites:/app/test-suites:ro
+    ports:
+      - "8080:8080"  # For Allure serve if needed
+    networks:
+      - test-network
+    depends_on:
+      - mock-service
+    command: ["./run-tests.sh"]
+
+  # Mock gRPC service for testing (optional - replace with real service)
+  mock-service:
+    image: grpcurl/grpcurl:latest
+    container_name: mock-grpc-service
+    ports:
+      - "50051:50051"
+    networks:
+      - test-network
+    # This is a placeholder - replace with your actual service
+    command: ["echo", "Replace this with your actual gRPC service"]
+
+  # Allure report service (optional)
+  allure-ui:
+    image: frankescobar/allure-docker-service:latest
+    container_name: allure-ui
+    environment:
+      - CHECK_RESULTS_EVERY_SECONDS=3
+      - KEEP_HISTORY=5
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./target/allure-results:/app/allure-results
+      - ./target/allure-reports:/app/default-reports
+    networks:
+      - test-network
+    profiles:
+      - reports
+
+networks:
+  test-network:
+    driver: bridge
+
+# Example usage commands:
+# Basic test run:          docker-compose up api-grpc-tests
+# Run specific test suite: TEST_SUITE=regression.xml docker-compose up api-grpc-tests  
+# With Allure reports:     docker-compose --profile reports up
+# Development mode:        docker-compose up -d mock-service && docker-compose run --rm api-grpc-tests

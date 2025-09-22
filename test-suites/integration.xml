@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Integration Tests" parallel="classes" thread-count="2">
+    <test name="User Integration Tests">
+        <classes>
+            <class name="tests.integration.UserIntegrationTest"/>
+        </classes>
+    </test>
+</suite>

@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package userservice;
+
+option java_package = "com.example.grpc.userservice";
+option java_outer_classname = "UserServiceProto";
+
+service UserService {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+  
+  // Streaming methods
+  rpc CreateUsersStream(stream CreateUserRequest) returns (CreateUsersStreamResponse);
+  rpc GetUsersStream(stream GetUserRequest) returns (stream GetUserResponse);
+  rpc UpdateUsersStream(stream UpdateUserRequest) returns (stream UpdateUserResponse);
+  rpc DeleteUsersStream(stream DeleteUserRequest) returns (DeleteUsersStreamResponse);
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  int32 age = 4;
+  UserStatus status = 5;
+}
+
+enum UserStatus {
+  UNKNOWN = 0;
+  ACTIVE = 1;
+  INACTIVE = 2;
+  BANNED = 3;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+  bool found = 2;
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+  int32 age = 3;
+}
+
+message CreateUserResponse {
+  User user = 1;
+  bool success = 2;
+  string error_message = 3;
+}
+
+message UpdateUserRequest {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  int32 age = 4;
+  UserStatus status = 5;
+}
+
+message UpdateUserResponse {
+  User user = 1;
+  bool success = 2;
+  string error_message = 3;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message DeleteUserResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+message ListUsersRequest {
+  int32 page = 1;
+  int32 size = 2;
+  string filter = 3;
+}
+
+message ListUsersResponse {
+  repeated User users = 1;
+  int32 total_count = 2;
+  int32 page = 3;
+  int32 size = 4;
+}
+
+message CreateUsersStreamResponse {
+  repeated CreateUserResponse responses = 1;
+  int32 total_processed = 2;
+  int32 successful_count = 3;
+  int32 failed_count = 4;
+}
+
+message DeleteUsersStreamResponse {
+  repeated DeleteUserResponse responses = 1;
+  int32 total_processed = 2;
+  int32 successful_count = 3;
+  int32 failed_count = 4;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Smoke Tests" parallel="classes" thread-count="3">
+    <test name="API Smoke Tests">
+        <classes>
+            <class name="tests.api.HealthCheckTest"/>
+        </classes>
+    </test>
+    
+    <test name="User API Smoke Tests">
+        <classes>
+            <class name="tests.api.UserApiTest">
+                <methods>
+                    <include name="createUserApiTest"/>
+                    <include name="getUserByIdApiTest"/>
+                    <include name="deleteUserApiTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <test name="gRPC Smoke Tests">
+        <classes>
+            <class name="tests.grpc.UserServiceGrpcTest">
+                <methods>
+                    <include name="createUsersStreamGrpcTest"/>
+                    <include name="getUsersStreamGrpcTest"/>
+                    <include name="deleteUsersStreamGrpcTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

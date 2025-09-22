@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Full Test Suite" parallel="classes" thread-count="4">
+    <test name="Health Check">
+        <classes>
+            <class name="tests.api.HealthCheckTest"/>
+        </classes>
+    </test>
+    
+    <test name="User API Tests">
+        <classes>
+            <class name="tests.api.UserApiTest"/>
+        </classes>
+    </test>
+    
+    <test name="User gRPC Tests">
+        <classes>
+            <class name="tests.grpc.UserServiceGrpcTest"/>
+            <class name="tests.grpc.UserServiceNegativeGrpcTest"/>
+            <class name="tests.grpc.UserServiceStreamingGrpcTest"/>
+        </classes>
+    </test>
+    
+    <test name="Integration Tests">
+        <classes>
+            <class name="tests.integration.UserIntegrationTest"/>
+        </classes>
+    </test>
+</suite>
